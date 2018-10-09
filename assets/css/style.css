@@ -29,6 +29,26 @@ body {
 .logo:hover {
   color: #888;
 }
+nav {
+  text-align: right;
+}
+nav ul {
+  list-style-type: none;
+}
+nav ul li {
+  text-decoration: none;
+  display: inline-block;
+}
+nav li a {
+  text-decoration: none;
+  padding: 10px 12px;
+  color: black;
+  background: #cccccc;
+}
+nav li a:hover {
+  background: #333;
+  color: #f1f1f1;
+}
 .form-item {
   padding: 10px 12px;
 }
@@ -82,4 +102,13 @@ body {
 }
 .margin-bottom {
   margin-bottom: 20px;
+}
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #eee;
+  color: #383838;
+  text-align: center;
 }

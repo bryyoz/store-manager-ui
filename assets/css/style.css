@@ -1,0 +1,64 @@
+* {
+  font-family: "Raleway", sans-serif;
+}
+body {
+  background: #f1f1f1;
+}
+.row {
+  margin: auto;
+}
+.row-wide {
+  max-width: 1200px;
+}
+.row-narrow {
+  max-width: 800px;
+}
+.center {
+  text-align: center;
+}
+.banner {
+  padding: 2px;
+  margin: 0px;
+}
+.logo {
+  float: left;
+  font-size: 24px;
+  text-decoration: none;
+  color: #383838;
+}
+.logo:hover {
+  color: #888;
+}
+.form-item {
+  padding: 10px 12px;
+}
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+.button {
+  color: #f1f1f1;
+  border: none;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+.button:hover {
+  background: #88b5ca;
+  color: #f1f1f1;
+}
+
+.button-green {
+  background: #7998a6;
+}
+.button-red {
+  background: red;
+}
+.button-blue {
+  background: #888;
+}

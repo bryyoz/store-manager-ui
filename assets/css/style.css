@@ -103,7 +103,21 @@ nav li a:hover {
 .margin-bottom {
   margin-bottom: 20px;
 }
-.footer{
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+tr:hover {
+  background: #ddd;
+}
+.footer {
   position: fixed;
   left: 0;
   bottom: 0;

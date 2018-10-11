@@ -129,3 +129,12 @@ tr:hover {
 .red{
   color: red;
 }
+.right{
+  text-align: right
+}
+@media screen and (max-width: 600px) {
+  .panel {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(80px, 2fr));
+  }
+}

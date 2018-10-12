@@ -1,6 +1,7 @@
 # Store-manager-UI
 
-The user interface of store manager project
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/waracci/store-manager-ui/pulls)
+> The user interface of store manager project
 
 ## Getting Started
 

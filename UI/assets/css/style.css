@@ -118,13 +118,15 @@ tr:hover {
   background: #ddd;
 }
 .footer {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #eee;
+  background-color: #e1e1e1;
   color: #383838;
   text-align: center;
+  padding: 8px;
+  margin-top: 6px;
 }
 .red{
   color: red;

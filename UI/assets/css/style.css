@@ -72,7 +72,9 @@ nav li a:hover {
   background: #88b5ca;
   color: #f1f1f1;
 }
-
+.content{
+  min-height: 100vh;
+}
 .button-green {
   background: #7998a6;
 }
@@ -103,6 +105,10 @@ nav li a:hover {
 .margin-bottom {
   margin-bottom: 20px;
 }
+.pad{
+  background: #dedede;
+  padding: 14px;
+}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -118,7 +124,7 @@ tr:hover {
   background: #ddd;
 }
 .footer {
-  /* position: fixed; */
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;

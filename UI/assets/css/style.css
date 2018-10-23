@@ -79,7 +79,10 @@ nav li a:hover {
   background: #3D9970;
 }
 .button-red {
-  background: red;
+  background: #B33A3A;
+}
+.button-olive{
+  background: #3D9970;
 }
 .button-blue {
   background: #0074D9;
@@ -136,7 +139,7 @@ tr:hover {
   margin-top: 6px;
 }
 .red{
-  color: red;
+  color: #B33A3A;
 }
 .right{
   text-align: right

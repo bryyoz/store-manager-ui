@@ -3,6 +3,8 @@
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/waracci/store-manager-ui/pulls)
 > The user interface of store manager project
 
+### View Application [Here](https://waracci.github.io/store-manager-ui/UI/html/index.html)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

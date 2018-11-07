@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-    <div class="row row-wide">
+<body onload="checkPageCredentials()">
+    <div class="row row-wide" id="panel">
         <div class="banner">
             <a href="index.html" class="logo">store-manager</a>
             <nav>
@@ -46,7 +46,7 @@
                                     <th>product name</th>
                                     <th>date added</th>
                                     <th>SKU</th>
-                                    <th>MOQ</th>
+                                    <th>minorder</th>
                                     <th>quanity</th>
                                     <th>price</th>
                                     <th colspan="2">actions</th>
@@ -98,6 +98,7 @@
             <p>Copyright 2018</p>
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 
 </html>

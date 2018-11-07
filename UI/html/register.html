@@ -25,25 +25,23 @@
                 <h1>Store Manager sign up</h1>
                 <hr>
                 <div class="row row-narrow">
-                    <form action="login.html">
-                        <div class="form-item">
-                            <label for="name">Enter name</label>
-                            <input type="text" class="form-input" name="name" placeholder="Enter name">
-                        </div>
+                    
+                   <p id="messages"></p>
+                    <form id="form-register">
                         <div class="form-item">
                             <label for="email">Enter email</label>
-                            <input type="email" class="form-input" name="email" placeholder="Enter email">
+                            <input type="email" class="form-input" name="email" placeholder="Enter email" id="email">
                         </div>
                         <div class="form-item">
                             <label for="password">Enter password</label>
-                            <input type="password"class="form-input" name="password" placeholder="Enter password">
+                            <input type="password"class="form-input" name="password" placeholder="Enter password" id="password">
                         </div>
                         <div class="form-item">
                             <label for="confirm-password">Confirm password</label>
-                            <input type="password"class="form-input" name="confirm-password" placeholder="Confirm password">
+                            <input type="password"class="form-input" name="confirmPassword" placeholder="Confirm password" id="confirmPassword">
                         </div>
                         <div class="form-item">
-                            <button class="button button-green">sign up</button>
+                            <button type="submit" class="button button-green">sign up</button>
                         </div>
                     </form>
                     <p>Already have an account? <a href="login.html">sign in</a></p>
@@ -55,5 +53,6 @@
             <p>Copyright 2018</p>
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

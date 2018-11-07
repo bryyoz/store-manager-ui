@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-    <div class="row row-narrow">
+<body onload="checkPageCredentials()">
+    <div class="row row-narrow" id="panel">
         <div class="banner">
             <a href="index.html" class="logo">store-manager</a>
             <nav>
@@ -27,26 +27,35 @@
                 <div class="center">
                     <img src="../assets/images/single-product.png" alt="">
                 </div>
-                <div class="panel-item">
-                    <form action="products.html">
+                <div class="panel-item mb">
+                    <p id="messages"></p>
+                    <form id="add-product">
                         <div class="form-item">
                             <label for="name">Enter product name</label>
-                            <input type="text" class="form-input" name="name" placeholder="Enter product name">
+                            <input type="text" class="form-input" name="name" placeholder="Enter product name" id="name">
                         </div>
                         <div class="form-item">
-                            <label for="moq">Enter Minimum Order Quanity(MOQ)</label>
-                            <input type="number" class="form-input" name="moq" placeholder="Enter MOQ">
+                            <label for="name">Enter product description</label>
+                            <textarea rows="3" cols="50" class="form-input" name="description" placeholder="Enter product description" id="description"></textarea>
+                        </div>
+                        <div class="form-item">
+                            <label for="price">Enter product price</label>
+                            <input type="number" class="form-input" name="price" placeholder="Enter product price" id="price">
                         </div>
                         <div class="form-item">
                             <label for="quantity">Enter product quantity</label>
-                            <input type="number" class="form-input" name="quantity" placeholder="Enter product quantity">
+                            <input type="number" class="form-input" name="quantity" placeholder="Enter product quantity" id="quantity">
                         </div>
                         <div class="form-item">
-                            <label for="price">Enter product price in KSH</label>
-                            <input type="number" class="form-input" name="price" placeholder="Enter product price in KSH">
+                            <label for="category">Enter product category</label>
+                            <input type="text" class="form-input" name="category" placeholder="Enter product category" id="category">
                         </div>
                         <div class="form-item">
-                            <button class="button button-green">add product</button>
+                            <label for="minorder">Enter Minimum Order Quanity(minorder)</label>
+                            <input type="number" class="form-input" name="minorder" placeholder="Enter minorder" id="minorder">
+                        </div>
+                        <div class="form-item">
+                            <button type="submit" class="button button-green">add product</button>
                         </div>
                     </form>
                 </div>
@@ -57,5 +66,6 @@
             <p>Copyright 2018</p>
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

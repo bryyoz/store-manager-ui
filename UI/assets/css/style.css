@@ -127,6 +127,9 @@ td {
 tr:hover {
   background: #ddd;
 }
+.mb{
+  margin-bottom: 20px;
+}
 .footer {
   position: fixed;
   left: 0;
@@ -140,6 +143,9 @@ tr:hover {
 }
 .red{
   color: #B33A3A;
+}
+.green{
+  color: #3D9970
 }
 .right{
   text-align: right

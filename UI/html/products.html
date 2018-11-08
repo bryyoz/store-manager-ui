@@ -1,104 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>store-manager view all products</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
 
-<body onload="checkPageCredentials()">
+  <body onload="checkPageCredentials()">
     <div class="row row-wide" id="panel">
-        <div class="banner">
-            <a href="index.html" class="logo">store-manager</a>
-            <nav>
-                <ul class="nav">
-                        <li><a href="index.html">home</a></li>
-                        <li><a href="profile.html">morris warachi account</a></li>
-                        <li><a href="dashboard.html" class="button-olive">back to dashboard</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="content">
-            <div class="">
-                <h1>Store Manager : view all products</h1>
-                <hr>
-                <div class="center">
-                    <img src="../assets/images/products.png" alt="">
-                </div>
-                <div class="profile-content">
-                    <div class="panel-item center">
-                        <div class="panel-item-image">
-                        </div>
-                        <h1>view all products.</h1>
-                        <p>view all products here below.</p>
-                        <div class="form-item">
-                            <label for="search">Search for products</label>
-                            <input type="search" name="search" placeholder="Search for products here" class="form-input">
-                        </div>
-                        <div class="">
-                            <table class="margin-bottom">
-                                <tr>
-                                    <th>index</th>
-                                    <th>product name</th>
-                                    <th>date added</th>
-                                    <th>SKU</th>
-                                    <th>minorder</th>
-                                    <th>quanity</th>
-                                    <th>price</th>
-                                    <th colspan="2">actions</th>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td><a href="single-product.html">pencils: HB</a></td>
-                                    <td>8 October 2018</td>
-                                    <td>#867FGH</td>
-                                    <td>250</td>
-                                    <td>100</td>
-                                    <td>100 ksh</td>
-                                    <td>
-                                        <a href="#" class="button button-blue" onclick="confirm('Edit this product')">edit</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="button button-red" onclick="confirm('Delete this product')">delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td><a href="single-product.html">pencils: Nataraj</a></td>
-                                    <td>8 October 2018</td>
-                                    <td>#887FGH</td>
-                                    <td>100</td>
-                                    <td>1000</td>
-                                    <td>650 ksh</td>
-                                    <td>
-                                        <a href="#" class="button button-blue" onclick="confirm('Edit this product')">edit</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="button button-red" onclick="confirm('Delete this product')">delete</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <hr>
-                        <h4>For admin only</h4>
-                        <div class="margin-bottom">
-                            <a href="add-product.html" class="button button-green">add a product</a>
-                        </div>
-                        <a href="profile.html" class="button button-blue">You are signed in as morris warachi</a>
-                    </div>
-                </div>
+      <div class="banner">
+        <a href="index.html" class="logo">store-manager</a>
+        <nav>
+          <ul class="nav">
+            <li><a href="index.html">home</a></li>
+            <li><a href="profile.html">morris warachi account</a></li>
+            <li>
+              <a href="dashboard.html" class="button-olive"
+                >back to dashboard</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="content">
+        <div class="">
+          <h1>Store Manager : view all products</h1>
+          <hr />
+          <div class="center">
+            <img src="../assets/images/products.png" alt="" />
+          </div>
+          <div class="profile-content">
+            <div class="panel-item center">
+              <h1>view all products.</h1>
+              <p>view all products here below.</p>
+              <div class="form-item">
+                <label for="search">Search for products</label>
+                <input
+                  type="search"
+                  name="search"
+                  placeholder="Search for products here"
+                  class="form-input"
+                />
+              </div>
+              <div class="">
+                <div id="messages"></div>
+                <table class="mb">
+                  <tr>
+                    <th>index</th>
+                    <th>product name</th>
+                    <th>product description</th>
+                    <th>price</th>
+                    <th>quanity</th>
+                    <th>category</th>
+                    <th>date added</th>
+                    <th colspan="2">actions</th>
+                  </tr>
+                  <tbody id="products-table"></tbody>
+                  <a href="add-product.html" class="button button-green"
+        >add a product</a
+      >
+                </table>
+                <div id="noProducts"></div>
+              </div>
+              <hr />
             </div>
+          </div>
         </div>
-        <div class="footer">
-            <p>Store Manager</p>
-            <p>Copyright 2018</p>
-        </div>
+      </div>
+      <div class="footer">
+        <p>Store Manager (c) 2018</p>
+        
+      </div>
     </div>
     <script src="../assets/js/script.js"></script>
-</body>
-
+  </body>
 </html>

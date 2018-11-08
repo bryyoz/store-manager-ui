@@ -7,12 +7,22 @@ const baseUrlUi = "http://127.0.0.1:5500/";
 function checkPageCredentials() {
   // Contains all page checks before load
   checkAccessToken();
+  if (window.location.href.includes("products.html")) {
+    retrieveAllProducts();
+  }
+  if (window.location.href.includes("single-product.html")) {
+    retrieveSingleProduct();
+  }
+  if (window.location.href.includes("edit-product.html")) {
+    retrieveSingleProductEdit();
+  }
 }
 console.log(`Bearer ${localStorage.getItem("token")}`);
+console.log(window.location.href);
 
 function checkAccessToken() {
   accessToken = localStorage.getItem("token");
-  if (!accessToken || accessToken.includes('undefined')) {
+  if (!accessToken || accessToken.includes("undefined")) {
     document.getElementById("panel").innerHTML = `
       <a href="index.html" class="logo">store-manager</a>
       <nav>
@@ -38,11 +48,10 @@ function retrieveToken() {
   }
 }
 
-
 // Register a new User
-regForm = document.getElementById("form-register");
 loginForm = document.getElementById("form-login");
 addproductForm = document.getElementById("add-product");
+regForm = document.getElementById("form-register");
 if (regForm) {
   regForm.addEventListener("submit", userRegister);
 }
@@ -94,9 +103,7 @@ function userLogin(event) {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
-      //GEt LOGIN ERRORS HERE
-      if (data.status == "failed"){
+      if (data.status == "failed") {
         messageText.innerHTML = `${data.message} !`;
       } else {
         // Store Access Token in local storage
@@ -116,7 +123,6 @@ function userLogin(event) {
 function addProduct(event) {
   event.preventDefault();
   const product_name = document.getElementById("name").value;
-  console.log(product_name);
   const product_description = document.getElementById("description").value;
   const product_price = parseInt(document.getElementById("price").value);
   const product_quantity = parseInt(document.getElementById("quantity").value);
@@ -146,18 +152,19 @@ function addProduct(event) {
       if (data.msg) {
         messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
       }
-      if (data.status == "ok"){
+      if (data.status == "ok") {
         messageText.innerHTML = data.message;
         window.location = `${baseUrlUi}UI/html/products.html`;
       }
-      console.log(data);
     })
     .catch(err => {
       messageText.innerHTML = err;
     });
 }
 
-function retrieveAllProducts(){
+function retrieveAllProducts() {
+  const productsTable = document.getElementById("products-table");
+  const noProductsDispl = document.getElementById("noProducts");
   fetch(`${baseUrl}/products`, {
     method: "GET",
     headers: {
@@ -166,5 +173,205 @@ function retrieveAllProducts(){
     }
   })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      }
+      if (data.products) {
+        if (data.products.length == 0) {
+          messageText.innerHTML = "Empty Resource";
+        }
+        data.products.forEach((product, index) => {
+          productsTable.innerHTML += `<p></p><tr>
+          <td>${index + 1}</td>
+          <td><a href="single-product.html?id=${product.id}">${product.name}</a></td>
+          <td>${product.description}</td>
+          <td>${product.price}Ksh</td>
+          <td>${product.quantity}</td>
+          <td>${product.category}</td>
+          <td>${product.date_created}</td>
+          <td>
+          <a href="edit-product.html?id=${product.id}" class="button button-blue">Edit product</a>
+          </td>
+          <td>
+              <a href="#" class="button button-red" onclick="deleteProduct(${
+                product.id
+              })">delete</a>
+          </td>
+      </tr>`;
+        });
+      } else {
+        noProductsDispl.innerHTML = `<div class="center">No products found <br> <a href="add-product.html" class="button button-green"
+        >add a product</a
+      ></div>`;
+      }
+    });
 }
+
+function retrieveSingleProduct() {
+  productDetails = document.getElementById("singleProductDetails");
+  const productIdParam = new URLSearchParams(window.location.search).get("id");
+  fetch(`${baseUrl}/products/${productIdParam}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      }
+      if (data.product) {
+        if (data.product[0].length == 0) {
+          messageText.innerHTML = "Empty Resource";
+        }
+        var product = data.product[0];
+        productDetails.innerHTML = `<h1>Product name: ${product.name}</h1>
+      <p> <b>Description: </b> ${product.description}</p>
+      <p><b>Price:</b> ${product.price}Ksh</p>
+      <p><b>Quantity</b> ${product.quantity}</p>
+      <p><b>Category</b> ${product.category}</p>
+      <p><b>minimum order quantity:</b> ${product.minorder}</p>
+      <p><b>Date added: </b> ${product.date_created}</p>
+      <hr>
+      <h4>For admin only</h4>
+      <a href="edit-product.html?id=${product.id}" class="button button-blue">Edit product</a>
+      <a href="#" class="button button-red" onclick="deleteProduct(${
+        product.id
+      })">delete</a>`;
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+function deleteProduct(id) {
+  if (confirm("delete this product")){
+
+    fetch(`${baseUrl}/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: retrieveToken()
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.errors || data.status == "failed") {
+          alert(`${data.message} !`);
+        }
+        if (data.msg) {
+          alert(`${data.msg}, Kindly sign in or register !`);
+        }
+        if (data.status == "ok") {
+          window.location = `${baseUrlUi}UI/html/products.html`;
+          alert(`product id ${id} has been deleted`);
+        }
+      });
+  }
+}
+
+function retrieveSingleProductEdit (){
+  const productIdParam = new URLSearchParams(window.location.search).get("id");
+  const editproductForm = document.getElementById("edit-product")
+  fetch(`${baseUrl}/products/${productIdParam}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.errors || data.status == "failed") {
+      messageText.innerHTML = `${data.message} !`;
+    }
+    if (data.msg) {
+      messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+    }
+    if (data.product){
+      const productArr = data.product[0]
+      editproductForm.innerHTML = `
+      <div class="form-item">
+          <label for="name">Enter product name</label>
+          <input type="text" class="form-input" name="name" placeholder="Enter product name" id="name" value="${productArr.name}">
+      </div>
+      <div class="form-item">
+          <label for="name">Enter product description</label>
+          <textarea rows="3" cols="50" class="form-input" name="description" placeholder="Enter product description" id="description">${productArr.description}</textarea>
+      </div>
+      <div class="form-item">
+          <label for="price">Enter product price</label>
+          <input type="number" class="form-input" name="price" placeholder="Enter product price" id="price" value="${productArr.price}">
+      </div>
+      <div class="form-item">
+          <label for="quantity">Enter product quantity</label>
+          <input type="number" class="form-input" name="quantity" placeholder="Enter product quantity" id="quantity" value="${productArr.quantity}">
+      </div>
+      <div class="form-item">
+          <label for="category">Enter product category</label>
+          <input type="text" class="form-input" name="category" placeholder="Enter product category" id="category" value="${productArr.category}">
+      </div>
+      <div class="form-item">
+          <label for="minorder">Enter Minimum Order Quanity(minorder)</label>
+          <input type="number" class="form-input" name="minorder" placeholder="Enter minorder" id="minorder"  value="${productArr.minorder}">
+      </div>
+      <div class="form-item">
+          <button type="submit" class="button button-green">edit product</button>
+          <button type="button" class="button button-red" onclick="window.location ='${baseUrlUi}UI/html/products.html'">cancel</button>
+          
+      </div>`
+    }
+  })
+}
+editproductForm = document.getElementById("edit-product");
+if (editproductForm) {
+  editproductForm.addEventListener("submit", updateProduct);
+}
+const productIdParam = new URLSearchParams(window.location.search).get("id");
+function updateProduct (event) {
+  event.preventDefault()
+  const product_name = document.getElementById("name").value;
+  const product_description = document.getElementById("description").value;
+  const product_price = parseInt(document.getElementById("price").value);
+  const product_quantity = parseInt(document.getElementById("quantity").value);
+  const product_category = document.getElementById("category").value;
+  const product_minorder = parseInt(document.getElementById("minorder").value);
+  fetch(`${baseUrl}/products/${productIdParam}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    },
+    body: JSON.stringify({
+      product_name,
+      product_description,
+      product_price,
+      product_price,
+      product_quantity,
+      product_category,
+      product_minorder
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      else if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      } else {
+        messageText.innerHTML = 'success';
+        window.location = `${baseUrlUi}UI/html/products.html`; 
+      }     
+    });
+};

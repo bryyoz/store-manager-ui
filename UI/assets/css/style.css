@@ -105,9 +105,6 @@ nav li a:hover {
   width: 100%;
   height: auto;
 }
-.margin-bottom {
-  margin-bottom: 20px;
-}
 .pad{
   background: #dedede;
   padding: 14px;
@@ -129,6 +126,9 @@ tr:hover {
 }
 .mb{
   margin-bottom: 20px;
+}
+#messages{
+  background-color: #88b5ca;
 }
 .footer {
   position: fixed;

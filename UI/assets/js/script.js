@@ -1,6 +1,6 @@
 // Javascript code to consume the API
 // Constants
-const baseUrl = "http://127.0.0.1:5000/api/v2";
+const baseUrl = "https://stoman.herokuapp.com/api/v2";
 const baseUrlUi = "http://127.0.0.1:5500/";
 
 // Onpage Load Function
@@ -90,7 +90,11 @@ function userRegister(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const confirm_password = document.getElementById("confirmPassword").value;
-  const role = document.getElementsByName("role")[0].value;
+  try {
+  var role = document.getElementsByName("role")[0].value;    
+  } catch (error) {
+    role = "attendant"
+  }
   fetch(`${baseUrl}/auth/signup`, {
     method: "POST",
     headers: {

@@ -1,7 +1,7 @@
 // Javascript code to consume the API
 // Constants
 const baseUrl = "https://stoman.herokuapp.com/api/v2";
-const baseUrlUi = "http://127.0.0.1:5500/";
+const baseUrlUi = "https://waracci.github.io/store-manager-ui/";
 
 // Onpage Load Function
 function checkPageCredentials() {

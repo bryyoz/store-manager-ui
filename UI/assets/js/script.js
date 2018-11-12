@@ -16,6 +16,9 @@ function checkPageCredentials() {
   if (window.location.href.includes("edit-product.html")) {
     retrieveSingleProductEdit();
   }
+  if (window.location.href.includes("sales.html")) {
+    retrieveAllSales();
+  }
 }
 console.log(`Bearer ${localStorage.getItem("token")}`);
 console.log(window.location.href);
@@ -187,14 +190,18 @@ function retrieveAllProducts() {
         data.products.forEach((product, index) => {
           productsTable.innerHTML += `<p></p><tr>
           <td>${index + 1}</td>
-          <td><a href="single-product.html?id=${product.id}">${product.name}</a></td>
+          <td><a href="single-product.html?id=${product.id}">${
+            product.name
+          }</a></td>
           <td>${product.description}</td>
           <td>${product.price}Ksh</td>
           <td>${product.quantity}</td>
           <td>${product.category}</td>
           <td>${product.date_created}</td>
           <td>
-          <a href="edit-product.html?id=${product.id}" class="button button-blue">Edit product</a>
+          <a href="edit-product.html?id=${
+            product.id
+          }" class="button button-blue">Edit product</a>
           </td>
           <td>
               <a href="#" class="button button-red" onclick="deleteProduct(${
@@ -243,7 +250,9 @@ function retrieveSingleProduct() {
       <p><b>Date added: </b> ${product.date_created}</p>
       <hr>
       <h4>For admin only</h4>
-      <a href="edit-product.html?id=${product.id}" class="button button-blue">Edit product</a>
+      <a href="edit-product.html?id=${
+        product.id
+      }" class="button button-blue">Edit product</a>
       <a href="#" class="button button-red" onclick="deleteProduct(${
         product.id
       })">delete</a>`;
@@ -255,8 +264,7 @@ function retrieveSingleProduct() {
 }
 
 function deleteProduct(id) {
-  if (confirm("delete this product")){
-
+  if (confirm("delete this product")) {
     fetch(`${baseUrl}/products/${id}`, {
       method: "DELETE",
       headers: {
@@ -280,9 +288,9 @@ function deleteProduct(id) {
   }
 }
 
-function retrieveSingleProductEdit (){
+function retrieveSingleProductEdit() {
   const productIdParam = new URLSearchParams(window.location.search).get("id");
-  const editproductForm = document.getElementById("edit-product")
+  const editproductForm = document.getElementById("edit-product");
   fetch(`${baseUrl}/products/${productIdParam}`, {
     method: "GET",
     headers: {
@@ -290,56 +298,68 @@ function retrieveSingleProductEdit (){
       Authorization: retrieveToken()
     }
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.errors || data.status == "failed") {
-      messageText.innerHTML = `${data.message} !`;
-    }
-    if (data.msg) {
-      messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
-    }
-    if (data.product){
-      const productArr = data.product[0]
-      editproductForm.innerHTML = `
+    .then(res => res.json())
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      }
+      if (data.product) {
+        const productArr = data.product[0];
+        editproductForm.innerHTML = `
       <div class="form-item">
           <label for="name">Enter product name</label>
-          <input type="text" class="form-input" name="name" placeholder="Enter product name" id="name" value="${productArr.name}">
+          <input type="text" class="form-input" name="name" placeholder="Enter product name" id="name" value="${
+            productArr.name
+          }">
       </div>
       <div class="form-item">
           <label for="name">Enter product description</label>
-          <textarea rows="3" cols="50" class="form-input" name="description" placeholder="Enter product description" id="description">${productArr.description}</textarea>
+          <textarea rows="3" cols="50" class="form-input" name="description" placeholder="Enter product description" id="description">${
+            productArr.description
+          }</textarea>
       </div>
       <div class="form-item">
           <label for="price">Enter product price</label>
-          <input type="number" class="form-input" name="price" placeholder="Enter product price" id="price" value="${productArr.price}">
+          <input type="number" class="form-input" name="price" placeholder="Enter product price" id="price" value="${
+            productArr.price
+          }">
       </div>
       <div class="form-item">
           <label for="quantity">Enter product quantity</label>
-          <input type="number" class="form-input" name="quantity" placeholder="Enter product quantity" id="quantity" value="${productArr.quantity}">
+          <input type="number" class="form-input" name="quantity" placeholder="Enter product quantity" id="quantity" value="${
+            productArr.quantity
+          }">
       </div>
       <div class="form-item">
           <label for="category">Enter product category</label>
-          <input type="text" class="form-input" name="category" placeholder="Enter product category" id="category" value="${productArr.category}">
+          <input type="text" class="form-input" name="category" placeholder="Enter product category" id="category" value="${
+            productArr.category
+          }">
       </div>
       <div class="form-item">
           <label for="minorder">Enter Minimum Order Quanity(minorder)</label>
-          <input type="number" class="form-input" name="minorder" placeholder="Enter minorder" id="minorder"  value="${productArr.minorder}">
+          <input type="number" class="form-input" name="minorder" placeholder="Enter minorder" id="minorder"  value="${
+            productArr.minorder
+          }">
       </div>
       <div class="form-item">
           <button type="submit" class="button button-green">edit product</button>
           <button type="button" class="button button-red" onclick="window.location ='${baseUrlUi}UI/html/products.html'">cancel</button>
           
-      </div>`
-    }
-  })
+      </div>`;
+      }
+    });
 }
 editproductForm = document.getElementById("edit-product");
 if (editproductForm) {
   editproductForm.addEventListener("submit", updateProduct);
 }
 const productIdParam = new URLSearchParams(window.location.search).get("id");
-function updateProduct (event) {
-  event.preventDefault()
+function updateProduct(event) {
+  event.preventDefault();
   const product_name = document.getElementById("name").value;
   const product_description = document.getElementById("description").value;
   const product_price = parseInt(document.getElementById("price").value);
@@ -366,12 +386,50 @@ function updateProduct (event) {
     .then(data => {
       if (data.errors || data.status == "failed") {
         messageText.innerHTML = `${data.message} !`;
-      }
-      else if (data.msg) {
+      } else if (data.msg) {
         messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
       } else {
-        messageText.innerHTML = 'success';
-        window.location = `${baseUrlUi}UI/html/products.html`; 
-      }     
+        messageText.innerHTML = "success";
+        window.location = `${baseUrlUi}UI/html/products.html`;
+      }
     });
-};
+}
+
+function retrieveAllSales() {
+  const salesTable = document.getElementById("sales-table");
+  const nosalesDispl = document.getElementById("noSales");
+  fetch(`${baseUrl}/sales`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      }
+      if (data.sales) {
+        if (data.sales.length == 0) {
+          messageText.innerHTML = "Empty Resource";
+        }
+        data.sales.forEach((sale, index) => {
+          salesTable.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>Product name ${sale.product_name}</td>
+            <td>Quantity Sold: ${sale.product_quantity}</td>
+            <td>Sales Total: ${sale.sales_total} Ksh</td>
+            <td>Made by: ${sale.made_by}</td>
+            <td>Date of Sale: ${sale.date_created}</td>            
+          </tr>`;
+        });
+      } else {
+        nosalesDispl.innerHTML = `<div class="center">No sales made</div>`;
+      }
+    });
+}

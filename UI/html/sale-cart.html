@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-    <div class="row row-wide">
+<body onload="checkPageCredentials()"">
+    <div class="row row-wide" id="panel">
         <div class="banner">
             <a href="index.html" class="logo">store-manager</a>
             <nav>
@@ -36,33 +36,23 @@
                         <h1>make a sale.</h1>
                         <a href="profile.html" class="button button-green">You are signed in as morris warachi</a>
                         <p>sell products below to add them to cart.</p>
-                        <div class="">
-                            <table class="mb">
+              <div id="messages"></div>
+              <table class="mb">
                                 <tr>
                                     <th>index</th>
                                     <th>product name</th>
+                                    <th>product price</th>
                                     <th>available quantity</th>
-                                    <th>add to cart</th>
+                                    <th>Enter quantity</th>
+                                    <th>Sell item</th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Pencils</td>
-                                    <td>30</td>
-                                    <td>
-                                        <button class="button button-green" onclick="alert('added to cart')">add to cart</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Kalamu</td>
-                                    <td>2</td>
-                                    <td>
-                                        <button class="button button-green" onclick="alert('added to cart')">add to cart</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                <tbody id="sales-cart-table">
 
+          <form id="sell-product">
+          </form>
+                </tbody>
+                <div id="noProducts"></div>
+                            </table>
                         <button class="button button-blue"  onclick="alert('cart cleared')">clear cart</button>
                         <button class="button button-green"  onclick="alert('checkout')">checkout</button>
                     </div>
@@ -74,6 +64,6 @@
             
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
-
 </html>

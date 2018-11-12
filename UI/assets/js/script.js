@@ -144,7 +144,7 @@ function userLogin(event) {
     });
 }
 
-function logout(token) {
+function logout() {
   fetch(`${baseUrl}/auth/logout`, {
     method: "POST",
     headers: {
@@ -154,9 +154,8 @@ function logout(token) {
   })
     .then(res => res.json())
     .then(data => {
-      //get localstorage 
-      //delete token from local storage
-      console.log(data);
+      localStorage.removeItem("token")
+      window.location = `${baseUrlUi}UI/html/login.html`;
     });
 }
 

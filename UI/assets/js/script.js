@@ -23,12 +23,12 @@ function checkPageCredentials() {
     retrieveCartProducts();
   }
   if (window.location.href.includes("sale-cart.html?id=")) {
-    console.log("hey")
-    //sell product funct call here
     const productIdParam = new URLSearchParams(window.location.search).get("id");
     const productQtyParam = new URLSearchParams(window.location.search).get("product_qty");
-    console.log(productQtyParam)
     sellProduct(productIdParam, productQtyParam)
+  }
+  if (window.location.href.includes("add-attendant.html")) {
+    fetchAllAttendants()
   }
 }
 console.log(`Bearer ${localStorage.getItem("token")}`);
@@ -62,7 +62,6 @@ function retrieveToken() {
   }
 }
 
-// Register a new User
 loginForm = document.getElementById("form-login");
 addproductForm = document.getElementById("add-product");
 regForm = document.getElementById("form-register");
@@ -84,7 +83,7 @@ function userRegister(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const confirm_password = document.getElementById("confirmPassword").value;
-  const role = "admin";
+  const role = document.getElementsByName("role")[0].value
   fetch(`${baseUrl}/auth/signup`, {
     method: "POST",
     headers: {
@@ -97,8 +96,8 @@ function userRegister(event) {
       if (data.status == "failed") {
         messageText.innerHTML = `${data.message} !`;
       } else {
-        messageText.innerHTML = data.message;
-        window.location = `${baseUrlUi}UI/html/login.html`;
+        messageText.innerHTML = "Attendant created!";
+        window.location = `${baseUrlUi}UI/html/add-attendant.html`;
       }
     });
 }
@@ -427,7 +426,7 @@ function retrieveAllSales() {
       }
       if (data.sales) {
         if (data.sales.length == 0) {
-          messageText.innerHTML = "Empty Resource";
+          messageText.innerHTML = "No sales made";
         }
         data.sales.forEach((sale, index) => {
           salesTable.innerHTML += `
@@ -518,6 +517,41 @@ function sellProduct(product_id, product_quantity){
       if (data.status == "ok") {
         messageText.innerHTML = data.status;
         window.location = `${baseUrlUi}UI/html/sale-cart.html`;
+      }
+    })
+}
+
+function fetchAllAttendants(){
+  const attendantsTable = document.getElementById("attendants-list")
+  fetch(`${baseUrl}/auth/attendants`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.errors || data.status == "failed") {
+        messageText.innerHTML = `${data.message} !`;
+      }
+      if (data.msg) {
+        messageText.innerHTML = `${data.msg}, Kindly sign in or register !`;
+      }
+      if (data.attendants) {
+        if (data.attendants.length == 0) {
+          messageText.innerHTML = "no attendants in store";
+        }
+        data.attendants.forEach((attendant, index) => {
+          attendantsTable.innerHTML += `
+          <tr>
+              <td>${index + 1}</td>
+              <td>Date added: ${attendant.created_at}</td>
+              <td>Email: ${attendant.email}</td>
+              <td>Role: ${attendant.role}</td>
+          </tr>
+          `;
+        })
       }
     })
 }

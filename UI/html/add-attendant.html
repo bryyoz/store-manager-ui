@@ -8,88 +8,67 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-    <div class="row row-wide">
+<body onload="checkPageCredentials()">
+    <div class="row row-wide" id="panel">
         <div class="banner">
             <a href="index.html" class="logo">store-manager</a>
             <nav>
                 <ul class="nav">
                         <li><a href="index.html">home</a></li>
-                        <li><a href="profile.html">morris warachi account</a></li>
                         <li><a href="dashboard.html" class="button-olive">back to dashboard</a></li>
                 </ul>
             </nav>
         </div>
         <div class="content">
-            <div class="">
                 <h1>Store Manager add attendant</h1>
                 <p><a href=".html"></a></p>
                 <hr>
                 <h1>Registered Attendants</h1>
+              <div id="messages"></div>
                 <table class="mb center">
                     <tr>
                         <th>index</th>
-                        <th>Attendant name</th>
                         <th>date Registered</th>
                         <th>email</th>
                         <th>role</th>
-                        <th>products sold</th>
-                        <th>total sales volume</th>
                     </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>Guava Mango</td>
-                        <td>8 October 2018</td>
-                        <td>guava@guav.com</td>
-                        <td>Attendant</td>
-                        <td>30</td>
-                        <td>2500 ksh</td>
-
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>morris waracci</td>
-                        <td>8 October 2018</td>
-                        <td>morris@mail.com</td>
-                        <td>Attendant</td>
-                        <td>2</td>
-                        <td>300 ksh</td>
-                    </tr>
+                    <tbody id="attendants-list"></tbody>
+                    <div id="noAttendants"></div>                    
                 </table>
                 <hr>
                 <div class="row row-narrow">
-                    <form action="login.html">
+                    <h4>Add attendant</h4>
+                    <form id="form-register">
                         <div class="form-item">
-                            <label for="name">Enter name of attendant</label>
-                            <input type="text" class="form-input" name="name" placeholder="Enter name">
+                            <label for="email">Enter email</label>
+                            <input type="email" class="form-input" name="email" placeholder="Enter email" id="email">
                         </div>
                         <div class="form-item">
-                            <label for="email">Enter email of attendant</label>
-                            <input type="email" class="form-input" name="email" placeholder="Enter email">
+                            <label for="password">Enter password</label>
+                            <input type="password"class="form-input" name="password" placeholder="Enter password" id="password">
                         </div>
                         <div class="form-item">
-                            <label for="password">assign password for attendant</label>
-                            <input type="password"class="form-input" name="password" placeholder="Enter password">
+                            <label for="confirm-password">Confirm password</label>
+                            <input type="password"class="form-input" name="confirmPassword" placeholder="Confirm password" id="confirmPassword">
                         </div>
                         <div class="form-item">
-                            <label for="confirm-password">Confirm password for attendant</label>
-                            <input type="password"class="form-input" name="confirm-password" placeholder="Confirm password">
+                            <label for="role">Select Role</label>
+                            <select name="role" id="roles">
+                                <option value="attendant">attendant</option>
+                                <option value="admin">admin</option>
+                            </select>
                         </div>
                         <div class="form-item">
-                            <input type="checkbox" name="attendant-admin">
-                            <label for="checkbox" class="red">make attendant admin</label>
-                        </div>
-                        <div class="form-item">
-                            <button class="button button-green">add attendant</button>
+                            <button type="submit" class="button button-green">add attendant</button>
                         </div>
                     </form>
                 </div>
-            </div>
         </div>
         <div class="footer">
             <p>Store Manager (c) 2018</p>
             
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

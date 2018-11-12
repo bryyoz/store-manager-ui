@@ -23,12 +23,19 @@ function checkPageCredentials() {
     retrieveCartProducts();
   }
   if (window.location.href.includes("sale-cart.html?id=")) {
-    const productIdParam = new URLSearchParams(window.location.search).get("id");
-    const productQtyParam = new URLSearchParams(window.location.search).get("product_qty");
-    sellProduct(productIdParam, productQtyParam)
+    const productIdParam = new URLSearchParams(window.location.search).get(
+      "id"
+    );
+    const productQtyParam = new URLSearchParams(window.location.search).get(
+      "product_qty"
+    );
+    sellProduct(productIdParam, productQtyParam);
   }
   if (window.location.href.includes("add-attendant.html")) {
-    fetchAllAttendants()
+    fetchAllAttendants();
+  }
+  if (window.location.href.includes("logout.html")) {
+    logout();
   }
 }
 console.log(`Bearer ${localStorage.getItem("token")}`);
@@ -83,7 +90,7 @@ function userRegister(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const confirm_password = document.getElementById("confirmPassword").value;
-  const role = document.getElementsByName("role")[0].value
+  const role = document.getElementsByName("role")[0].value;
   fetch(`${baseUrl}/auth/signup`, {
     method: "POST",
     headers: {
@@ -130,6 +137,22 @@ function userLogin(event) {
           alert("browser doesnt support local storage");
         }
       }
+    });
+}
+
+function logout(token) {
+  fetch(`${baseUrl}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: retrieveToken()
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      //get localstorage 
+      //delete token from local storage
+      console.log(data);
     });
 }
 
@@ -497,14 +520,14 @@ function retrieveCartProducts() {
     });
 }
 
-function sellProduct(product_id, product_quantity){
+function sellProduct(product_id, product_quantity) {
   fetch(`${baseUrl}/sales`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
       Authorization: retrieveToken()
     },
-    body: JSON.stringify({product_id, product_quantity})
+    body: JSON.stringify({ product_id, product_quantity })
   })
     .then(res => res.json())
     .then(data => {
@@ -518,11 +541,11 @@ function sellProduct(product_id, product_quantity){
         messageText.innerHTML = data.status;
         window.location = `${baseUrlUi}UI/html/sale-cart.html`;
       }
-    })
+    });
 }
 
-function fetchAllAttendants(){
-  const attendantsTable = document.getElementById("attendants-list")
+function fetchAllAttendants() {
+  const attendantsTable = document.getElementById("attendants-list");
   fetch(`${baseUrl}/auth/attendants`, {
     method: "GET",
     headers: {
@@ -551,7 +574,9 @@ function fetchAllAttendants(){
               <td>Role: ${attendant.role}</td>
           </tr>
           `;
-        })
+        });
       }
-    })
+    });
 }
+
+

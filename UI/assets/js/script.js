@@ -91,9 +91,9 @@ function userRegister(event) {
   const password = document.getElementById("password").value;
   const confirm_password = document.getElementById("confirmPassword").value;
   try {
-  var role = document.getElementsByName("role")[0].value;    
+    var role = document.getElementsByName("role")[0].value;
   } catch (error) {
-    role = "attendant"
+    role = "attendant";
   }
   fetch(`${baseUrl}/auth/signup`, {
     method: "POST",
@@ -154,7 +154,7 @@ function logout() {
   })
     .then(res => res.json())
     .then(data => {
-      localStorage.removeItem("token")
+      localStorage.removeItem("token");
       window.location = `${baseUrlUi}UI/html/login.html`;
     });
 }
@@ -581,5 +581,3 @@ function fetchAllAttendants() {
       }
     });
 }
-
-

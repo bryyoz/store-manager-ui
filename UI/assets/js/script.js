@@ -1,22 +1,15 @@
 // Javascript code to consume the API
 // Constants
 const baseUrl = "https://stoman.herokuapp.com/api/v2";
-// const baseUrlUi = "https://waracci.github.io/store-manager-ui/";
-const baseUrlUi = "http://127.0.0.1:5500/"
-
+const baseUrlUi = "https://waracci.github.io/store-manager-ui/";
 // Onpage Load Method
 const checkPageCredentials = () => {
   // Contains all page checks before load
   checkAccessToken();
-  
-  
-  
-  
   if (window.location.href.includes("logout.html")) {
     logout();
   }
-}
-
+};
 const checkAccessToken = () => {
   accessToken = localStorage.getItem("token");
   if (!accessToken || accessToken.includes("undefined")) {
@@ -36,20 +29,15 @@ const checkAccessToken = () => {
       <img src="../assets/images/warning.png" alt="">
       </div>`;
   }
-}
-
+};
 const retrieveToken = () => {
   if (localStorage.getItem("token")) {
     return `Bearer ${localStorage.getItem("token")}`;
   } else {
     return;
   }
-}
-
-
-
+};
 const messageText = document.getElementById("messages");
-
 const logout = () => {
   fetch(`${baseUrl}/auth/logout`, {
     method: "POST",
@@ -63,12 +51,4 @@ const logout = () => {
       localStorage.removeItem("token");
       window.location = `${baseUrlUi}UI/html/login.html`;
     });
-}
-
-
-
-
-
-
-
-
+};

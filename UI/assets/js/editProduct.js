@@ -72,7 +72,7 @@ if (editproductForm) {
   editproductForm.addEventListener("submit", updateProduct);
 }
 const productIdParam = new URLSearchParams(window.location.search).get("id");
-function updateProduct (event) {
+function updateProduct(event) {
   event.preventDefault();
   const product_name = document.getElementById("name").value;
   const product_description = document.getElementById("description").value;
@@ -107,4 +107,4 @@ function updateProduct (event) {
         window.location = `${baseUrlUi}UI/html/products.html`;
       }
     });
-};
+}
